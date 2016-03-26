@@ -7,7 +7,11 @@
 //
 
 #import "AppDelegate.h"
+
 #import "ViewController.h"
+#import "FeedViewController.h"
+#import "FavoritesViewController.h"
+#import "ProfileViewController.h"
 
 @interface AppDelegate ()
 
@@ -17,24 +21,19 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    // Override point for customization after application launch.
-    // Get the screen size.
-    CGRect viewRect = [[UIScreen mainScreen] bounds];
+    UITabBarController *tabBarController = [[UITabBarController alloc] init];
     
-    // Alloc the window with the full screen size.
-    self.window = [[UIWindow alloc] initWithFrame:viewRect];
+    FeedViewController *feedVC = [[FeedViewController alloc] init];
     
-    // Alloc a view controller for root.
-    self.viewController = [[ViewController alloc] init];
+    FavoritesViewController *favoritesVC = [[FavoritesViewController alloc] init];
     
-    // Add the view controller as our base view controller.
-    self.window.rootViewController = self.viewController;
+    ProfileViewController *profileVC = [[ProfileViewController alloc] init];
     
-    // Tell the window it can capture key and non-touch events.
+    [tabBarController setViewControllers:@[feedVC, favoritesVC, profileVC]];
+    
+    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+    self.window.rootViewController = tabBarController;
     [self.window makeKeyAndVisible];
-    
-    // Print screen size.
-    NSLog(@"Screen is %f tall and %f wide", viewRect.size.height, viewRect.size.width);
     
     return YES;
 }
